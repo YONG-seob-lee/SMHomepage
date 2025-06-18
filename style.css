@@ -1,5 +1,6 @@
 html, body{
     scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
     height: 100%;
     overflow-y: scroll;
 }
@@ -64,11 +65,11 @@ main {
     padding: 40px 20px;
     max-width: 900px;
     margin: auto;
-    scroll-snap-type: y mandatory;
 }
 
 section{
     scroll-snap-align: start;
+    scroll-snap-type: y mandatory;
     min-height: 100vh; /* 한 화면 높이만큼 차지 'vh' 키워드는 Viewport Height 화면 기준 100%*/
     overflow-y: auto;
     padding-top: 80px; /* 상단 nav 와 겹치지 않도록 여백 */
@@ -95,9 +96,10 @@ img {
 
 .member-grid {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+    flex-wrap: wrap; /* 넘치면 줄바꿈 */
+    gap: 20px; /* 카드 간격 */
+    justify-content: center; /* 중앙정렬 */
+    margin: auto; /* 필요 시 부모 기준 정중앙 */
     padding: 20px 0;
 }
 
@@ -110,6 +112,7 @@ img {
     border-radius: 16px;
     overflow: hidden;
     transition: transform 0.3s ease;
+    margin: auto; /* flex 내에서 중앙 정렬 */
 }
 
 .member-card:hover{
