@@ -69,7 +69,6 @@ main {
 
 section{
     scroll-snap-align: start;
-    scroll-snap-type: y mandatory;
     min-height: 100vh; /* 한 화면 높이만큼 차지 'vh' 키워드는 Viewport Height 화면 기준 100%*/
     overflow-y: auto;
     padding-top: 80px; /* 상단 nav 와 겹치지 않도록 여백 */
@@ -165,8 +164,30 @@ img {
 
 footer{
     background-color: #1e1e1e;
+    color: #aaa;
     text-align:center;
-    padding: 20px;
-    color: #888;
+    font-size: 0.85em;
+    padding: 40px 20px;
     border-top: 1px solid #444;
+
+    min-height: 20vh;
+    scroll-snap-align: start;
+}
+
+.footer-top,
+.footer-middle,
+.footer-bottom {
+    margin-botom: 16px;
+}
+
+.footer-top p,
+.footer-middle p,
+.footer-bottom p {
+    margin: 4px 0;
+    line-height: 1.6;
+}
+
+.footer-bottom small {
+    color: #666;
+    font-size: 0.75em;
 }

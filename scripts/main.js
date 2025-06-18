@@ -1,7 +1,8 @@
 console.log("main.js loaded")
 
 const header = document.querySelector("header");
-const sections = document.querySelectorAll(".scroll-section");
+const allsections = document.querySelectorAll(".scroll-section");
+const sections = Array.from(allsections).filter(section => section.tagName.toLowerCase() !== 'footer');
 let lastScrollTop = 0;
 
 window.addEventListener("scroll", () => {
@@ -67,9 +68,13 @@ window.addEventListener("wheel", (e) => {
 
     // 유저가 섹션 바닥에 도달했는지 여부 판단
     const atBottom = viewportBottom >= sectionBottom - 10;
+    const isLastSection = currentIndex === sections.length - 1;
 
     if(e.deltaY > 0) {
         if(atBottom){
+            // footer가 너무 작아 자동으로 넘어가는 것 방지
+            if(isLastSection) return;
+
             if(readyToScrollNext){
                 scrollToSection(currentIndex + 1);
             } else {
