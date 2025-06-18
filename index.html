@@ -7,34 +7,110 @@
 </head>
 <body>
     <header>
-        <h1>My Game Project</h1>
+        <h1>Project Shaman</h1>
         <nav>
-            <a herf="#about">About</a>
-            <a herf="#media">Media</a>
-            <a herf="#steam">Steam</a>
+            <a href="#about" id="link-about">About</a>
+            <a href="#cutscene" id="link-media">CutScene</a>
+            <a href="#youtube" id="link-youtube">Youtube</a>
+            <a href="#steam" id="link-steam">Steam</a>
+            <a href="#member" id="link-notice">Member</a>
         </nav>
     </header>
 
     <main>
-        <section id="About">
+        <section id="about" class="scroll-section">
             <h2>About the Project</h2>
-            <p>This is a 2D roguelike game inspired by Vampire Survivors. You play as a long warrior fighting through endless waves of enemies.</p>
+
+            <img src="assets/images/GameLogo.png" alt="Game Logo" width="400">
+            <p><strong>Project Sjaman</strong>은 뱀파이어 서바이벌에서 영감을 받은 2D 로그라이크 게임입니다.
+            끊임없이 몰려오는 적들과 맞서 싸우는 쉴 틈 없는 게임입니다.
+            </p>
+
+            <P>
+                본 프로젝트는 Unity 기반으로 개발중이며, 각 캐릭터는 개성 있는 능력을 가지고 있습니다.
+            </P>
+
+            <p>
+                소규모 인디 팀으로 구성된 <strong>Project Shaman</strong> 팀은 게임 기획, 시스템, UI/UX, 아트, 애니메이션까지 전 영역을 자체 제작하며,
+                <em>"작지만 인상 깊은 경험</em>을 만드는 것을 목표로 하고 있습니다.
+            </p>
+
+            <p>
+                본 게임은 Steam 런칭을 목표로 하고 있으며, 향후 모바일 플랫폼으로의 확장도 고려중에 있습니다.
+            </p>
         </section>
 
-        <section id="media">
-            <h2>Media</h2>
+        <section id="cutscene" class="scroll-section">
+            <h2>CutScene</h2>
             <img src="assets/images/CutScene_01.png" alt="Gameplay Screenshot" width="500">
+            <p> 컷씬 이미지 01</p>
+            <img src="assets/images/CutScene_02.png" alt="Gameplay Screenshot" width="500">
+            <p> 컷씬 이미지 02</p>
+            <img src="assets/images/CutScene_03.png" alt="Gameplay Screenshot" width="500">
+            <p> 컷씬 이미지 03</p>
             <br><br>
+        </section>
+
+        <section id="youtube" class="scroll-section">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/_bWtRIihl7w" title="Simple Game Trailer." frameborder="0" allowfullscreen></iframe>
         </section>
 
-        <section id="steam">
+        <section id="steam" class="scroll-section">
             <h2>Play on Steam</h2>
-            <a herf="https://store.steampowered.com/app/1794680/Vampire_Survivors" target="_blank">Go to Steam Page</a>
+            <a href="https://store.steampowered.com/app/1794680/Vampire_Survivors" target="_blank">Go to Steam Page</a>
+        </section>
+
+        <section id="member" class="scroll-section">
+
+            <h2>Development Team</h2>
+            <div class="member-grid">
+                <div class="member-card">
+                    <h3>Game Planner</h3>
+                    <img src="assets/images/Copybara.png" alt="Member 1">
+                    <div class="member-info">
+                        <h4> 카피바라</h4>
+                        <p>Project Shaman 기획자 및 팀장.</p>
+                        <p>ProjectSM 기획서 및 테이블 담당.</p>
+                        <p>Email : sjfkdskfkd37@gmail.com</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <h3>Client Developer</h3>
+                    <img src="assets/images/polarbear.png" alt="Member 2">
+                    <div class="member-info">
+                        <h4> 귀여운 북극 곰돌이</h4>
+                        <p>Unreal & Unity 개발자. 게임 구조 설계와 시스템 최적화 담당.</p>
+                        <p>해당 홈페이지 제작 및 Steam & Firebase 연동</p>
+                        <p>EMail : prange668@gmail.com</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <h3>UI Designer</h3>
+                    <img src="assets/images/desertfox.png" alt="Member 3">
+                    <div class="member-info">
+                        <h4> 사막 여우</h4>
+                        <p>UI 디자인 및 Unity UI 계층 구조 설계</p>
+                        <p>해당 홈페이지 리소스 제작 및 원화 담당.</p>
+                        <p>Email : sunnyang1004@gmail.com</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <h3>Animator</h3>
+                    <img src="assets/images/crocodile.png" alt="Member 4">
+                    <div class="member-info">
+                        <h4> 아거</h4>
+                        <p>전체 Sprite Animator 담당.</p>
+                        <p>Sprite 일러스트 담당.</p>
+                        <p>Email : vkxldhl8@gmail.com</p>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
     <footer>
         <p>&copy; 2025 YongSeob Lee. All rights reserved.</p>
     </footer>
+
+    <script src="scripts/main.js"></script>
 </body>
