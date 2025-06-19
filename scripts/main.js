@@ -1,94 +1,53 @@
-console.log("main.js loaded")
-
-const header = document.querySelector("header");
-const allsections = document.querySelectorAll(".scroll-section");
-const sections = Array.from(allsections).filter(section => section.tagName.toLowerCase() !== 'footer');
-let lastScrollTop = 0;
-
-window.addEventListener("scroll", () => {
+document.addEventListener("DOMContentLoaded", () => {
+    const header = document.querySelector("header");
     const navLinks = document.querySelectorAll("nav a");
-    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-    const delta = currentScroll - lastScrollTop;
+    const sections = document.querySelectorAll("section");
+    let lastScrollTop = 0;
 
-    if(delta > 0)
-    {
-        header.classList.add("hide");
-    } else if(delta < 0)
-    {
-        header.classList.remove("hide");
-    }
+    // 💡 스크롤 시 헤더 숨김 처리
+    window.addEventListener("scroll", () => {
+        const scrollTop = window.scrollY;
 
-    lastScrollTop = currentScroll;;
-
-    let current ="";
-
-    sections.forEach((section) => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-
-        if(pageYOffset >= sectionTop - sectionHeight / 3)
-        {
-            current = section.getAttribute("id");
+        if (scrollTop > lastScrollTop && scrollTop > 80) {
+            header.classList.add("hide");
+        } else {
+            header.classList.remove("hide");
         }
+
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+
+        // 🔥 현재 보이는 섹션에 따라 메뉴 하이라이트
+        sections.forEach(section => {
+            const offsetTop = section.offsetTop - 120;
+            const sectionHeight = section.offsetHeight;
+            const currentId = section.getAttribute("id");
+
+            if (scrollTop >= offsetTop && scrollTop < offsetTop + sectionHeight) {
+                navLinks.forEach(link => {
+                    link.classList.remove("active");
+                    const targetLink = document.querySelector(`nav a[href="#${currentId}"]`);
+                    if (targetLink) {
+                        targetLink.classList.add("active");
+                    }
+                });
+            }
+        });
     });
 
-    navLinks.forEach((link) => {
-        link.classList.remove("active");
-        if(link.getAttribute("href") === `#${current}`)
-        {
-            link.classList.add("active");
-        }
-    })
-});
+    // 🚀 메뉴 클릭 시 부드러운 이동 처리
+    navLinks.forEach(link => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
 
+            const targetId = link.getAttribute("href").slice(1);
+            const targetSection = document.getElementById(targetId);
 
-let currentIndex = 0;
-let isScrolling = false;
-let readyToScrollNext = false;
-
-function scrollToSection(index){
-    if(index <0 || index >= sections.length) return;
-    isScrolling = true;
-    sections[index].scrollIntoView({ behavior: "smooth"});
-    currentIndex = index;
-    readyToScrollNext = false; // 초기화
-
-    // 스크롤 락 해제 지연시간 (섹션 이동 후 잠시 후 해제)
-    setTimeout(() => {
-        isScrolling = false;
-    }, 800); // 1초 정도 기다린 후 다시 스크롤 가능
-}
-
-window.addEventListener("wheel", (e) => {
-    if(isScrolling) return;
-
-    const currentSection = sections[currentIndex];
-    const sectionBottom = currentSection.offsetTop + currentSection.offsetHeight;
-    const viewportBottom = window.scrollY + window.innerHeight;
-
-    // 유저가 섹션 바닥에 도달했는지 여부 판단
-    const atBottom = viewportBottom >= sectionBottom - 10;
-    const isLastSection = currentIndex === sections.length - 1;
-
-    if(e.deltaY > 0) {
-        if(atBottom){
-            // footer가 너무 작아 자동으로 넘어가는 것 방지
-            if(isLastSection) return;
-
-            if(readyToScrollNext){
-                scrollToSection(currentIndex + 1);
-            } else {
-                readyToScrollNext = true;
-                console.log(" 다음 스크롤 시 자동 이동 예정");
+            if (targetSection) {
+                window.scrollTo({
+                    top: targetSection.offsetTop - 80,
+                    behavior: "smooth"
+                });
             }
-        } else {
-            readyToScrollNext = false;
-        }
-    } else if(e.deltaY < 0){
-        if(readyToScrollNext && currentIndex > 0){
-            scrollToSection(currentIndex - 1);
-        } else {
-            readyToScrollNext = true;
-        }
-    }
+        });
+    });
 });
