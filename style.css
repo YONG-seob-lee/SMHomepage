@@ -52,6 +52,38 @@ header h1 {
   color: var(--accent-color);
 }
 
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap:wrap;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.sprite-animation {
+    width: 339px;
+    height: 128px;
+    background-image: url("assets/images/Shaman_Sprite.png");
+    background-repeat: no-repeat;
+    background-size: calc(113px * 16);
+    animation: playWalk 1s steps(16) infinite;
+    margin-left: 32px;
+}
+
+@keyframes playWalk {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -1808px 0; /* 113px * 16 = 1808 */
+    }
+}
+
 nav {
   margin-top: 8px;
   display: flex;
@@ -266,5 +298,23 @@ footer {
 
   nav a {
     font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sprite-animation {
+    width: 80px;
+    height: 90px;
+    background-size: calc(80px * 16);
+    animation: playWalkSmall 1s steps(16) infinite;
+  }
+
+  @keyframes playWalkSmall {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: -1280px 0; /* 80px * 16 */
+    }
   }
 }
