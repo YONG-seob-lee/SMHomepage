@@ -141,6 +141,29 @@ img {
   border-radius: 8px;
 }
 
+.about-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.about-img {
+  max-width: 400px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.about-video {
+  max-width: 400px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
 /* VIDEO EMBED */
 .video-wrapper {
   position: relative;
@@ -298,6 +321,12 @@ footer {
 
   nav a {
     font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-flex {
+    flex-direction: column;
   }
 }
 
