@@ -3,150 +3,140 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🌿 Project Shaman</title>
+  <title>이미지 변환기 — Shaman AI</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
   <header>
-    <div class="header-wrapper">
-        <h1>🌿 Project Shaman</h1>
-        <div class="header-right">
-            <nav>
-                <a href="#about">📘 About</a>
-                <a href="#cutscene">🎬 CutScene</a>
-                <a href="#youtube">📺 Youtube</a>
-                <a href="#pagelink">🌐 PageLink</a>
-                <a href="#member">👥 Member</a>
-            </nav>
-            <div class="sprite-animation"></div>
-        </div>
+    <div class="header-inner">
+      <h1>🎨 이미지 변환기</h1>
+      <p class="subtitle">사진을 올리고, 원하는 느낌을 골라보세요</p>
     </div>
   </header>
 
   <main>
-    <section id="about" class="scroll-section">
-      <h2>📘 About the Project</h2>
-      <div class="about-flex">
-        <img class="about-img" src="assets/images/GameLogo.png" alt="Game Logo" width="250"/>
-        <video class="about-video" autoplay muted loop playsinline>
-          <source src="assets/videos/title.mp4" type="video/mp4" width="500">
-          당신의 브라우저는 비디오를 지원하지 않습니다.
-        </video>
-      </div>
 
-      <p><strong>Project Shaman</strong>은 뱀파이어 서바이벌에서 영감을 받은 2D 로그라이크 게임입니다.</p>
-      <p>Unity 기반의 액션 로그라이크로, 다양한 캐릭터와 스킬 조합을 통해 끝없는 생존을 목표로 합니다.</p>
-      <p>소규모 인디팀이 전 영역(기획/개발/디자인)을 자체 제작 중입니다.</p>
-      <p>Steam 출시를 목표로 하며, 추후 모바일 플랫폼으로도 확장할 계획입니다.</p>
-    </section>
+    <!-- STEP 1: 이미지 업로드 -->
+    <section class="step-card" id="step-upload">
+      <div class="step-label">1단계</div>
+      <h2>사진 올리기</h2>
 
-    <section id="cutscene" class="scroll-section">
-      <h2>🎬 CutScenes</h2>
-      <img src="assets/images/CutScene_01.png" alt="컷씬 1" width="500" />
-      <p>< 컷씬 이미지 01 ></p>
-      <img src="assets/images/CutScene_04.png" alt="컷씬 2" width="500" />
-      <p>< 컷씬 이미지 02 ></p>
-      <img src="assets/images/CutScene_02.png" alt="컷씬 3" width="500" />
-      <p>< 컷씬 이미지 03 ></p>
-      <img src="assets/images/CutScene_03.png" alt="컷씬 4" width="500" />
-      <p>< 컷씬 이미지 04 ></p>
-    </section>
-
-    <section id="youtube" class="scroll-section">
-      <h2>📺 트레일러 영상</h2>
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/aS7JqyHdQQA?si=eVUHTQR5L_OJrnON" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <br /><br />
-      <h2>🎮 플레이 영상</h2>
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/_bWtRIihl7w" frameborder="0" allowfullscreen></iframe>
+      <div class="upload-area" id="uploadArea">
+        <input type="file" id="fileInput" accept="image/*" hidden />
+        <div class="upload-placeholder" id="uploadPlaceholder">
+          <div class="upload-icon">📁</div>
+          <p class="upload-main">여기에 사진을 끌어다 놓거나</p>
+          <button type="button" class="btn btn-outline" id="uploadBtn">클릭해서 사진 선택</button>
+          <p class="upload-hint">PNG, JPG, WEBP 파일 모두 OK · 최대 10MB</p>
+        </div>
+        <div class="upload-preview" id="uploadPreview" hidden>
+          <img id="previewImg" src="" alt="선택한 사진" />
+          <button type="button" class="btn btn-small btn-outline" id="changeBtn">다른 사진 선택</button>
+        </div>
       </div>
     </section>
 
-    <section id="pagelink" class="scroll-section">
-      <h2>🌐 페이지 링크</h2>
+    <!-- STEP 2: 풍 선택 -->
+    <section class="step-card" id="step-style">
+      <div class="step-label">2단계</div>
+      <h2>느낌 고르기</h2>
 
-      <div class="link-card">
-        <h3>🕹️ 스팀 페이지</h3>
-        <a href="https://store.steampowered.com/app/1794680/Vampire_Survivors" target="_blank">
-          <img src="assets/images/SteamImage.jpg" alt="Steam Link" />
+      <div class="style-grid">
+        <button type="button" class="style-btn" data-style="photo">
+          <span class="style-icon">📷</span>
+          <span class="style-name">사진풍</span>
+          <span class="style-desc">실제 사진처럼</span>
+        </button>
+        <button type="button" class="style-btn" data-style="illust">
+          <span class="style-icon">🖼️</span>
+          <span class="style-name">그림풍</span>
+          <span class="style-desc">일러스트 스타일</span>
+        </button>
+        <button type="button" class="style-btn" data-style="anime">
+          <span class="style-icon">✨</span>
+          <span class="style-name">애니풍</span>
+          <span class="style-desc">애니메이션 스타일</span>
+        </button>
+        <button type="button" class="style-btn" data-style="watercolor">
+          <span class="style-icon">🎨</span>
+          <span class="style-name">수채화풍</span>
+          <span class="style-desc">물감으로 그린 느낌</span>
+        </button>
+        <button type="button" class="style-btn" data-style="sketch">
+          <span class="style-icon">✏️</span>
+          <span class="style-name">스케치풍</span>
+          <span class="style-desc">연필로 그린 느낌</span>
+        </button>
+      </div>
+
+      <div class="quality-row">
+        <span class="quality-label">화질</span>
+        <div class="quality-btns">
+          <button type="button" class="quality-btn selected" data-quality="fast">빠른 결과 (512px)</button>
+          <button type="button" class="quality-btn" data-quality="high">고화질 (1024px)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3: 원하는 것 입력 -->
+    <section class="step-card" id="step-wish">
+      <div class="step-label">3단계</div>
+      <h2>원하는 것 쓰기 <span class="optional">(선택)</span></h2>
+      <textarea
+        id="wishInput"
+        placeholder="예: 봄 느낌으로 / 강아지 추가 / 하늘을 더 파랗게&#10;짧게 적어도 OK!"
+        rows="3"
+        maxlength="200"
+      ></textarea>
+      <div class="char-count"><span id="charCount">0</span> / 200</div>
+    </section>
+
+    <!-- 만들기 버튼 -->
+    <div class="generate-wrap">
+      <button type="button" class="btn btn-generate" id="generateBtn" disabled>
+        <span class="btn-icon">🪄</span>
+        <span class="btn-text">만들기</span>
+      </button>
+      <p class="generate-hint" id="generateHint">1단계에서 사진을 먼저 올려주세요</p>
+    </div>
+
+    <!-- 로딩 -->
+    <div class="loading-wrap" id="loadingWrap" hidden>
+      <div class="spinner"></div>
+      <p class="loading-text">이미지 만드는 중...</p>
+      <p class="loading-sub">화질에 따라 30초~2분 정도 걸려요</p>
+    </div>
+
+    <!-- 결과 -->
+    <section class="result-card" id="resultCard" hidden>
+      <h2>✅ 완성됐어요!</h2>
+      <div class="result-img-wrap">
+        <img id="resultImg" src="" alt="생성된 이미지" />
+      </div>
+      <div class="result-actions">
+        <a id="downloadBtn" href="" download="shaman_result.png" class="btn btn-primary">
+          💾 저장하기
         </a>
-      </div>
-
-      <div class="link-card">
-        <h3>💻 GitHub 프로젝트</h3>
-        <a href="https://github.com/YONG-seob-lee/ProjectSM" target="_blank">
-          <img src="assets/images/GithubImage.png" alt="GitHub Link" />
-        </a>
+        <button type="button" class="btn btn-outline" id="retryBtn">
+          🔄 다시 만들기
+        </button>
       </div>
     </section>
 
-    <section id="member" class="scroll-section">
-      <h2>👥 Development Team</h2>
-      <div class="member-grid">
-        <div class="member-card">
-          <h3>📋 Game Planner</h3>
-          <img src="assets/images/crocodile.png" alt="아거" />
-          <div class="member-info">
-            <h4>아거</h4>
-            <p>기획 및 테이블 설계 담당</p>
-            <p>Email : sjfkdskfkd37@gmail.com</p>
-          </div>
-        </div>
-        <div class="member-card">
-          <h3>💻 Client Developer</h3>
-          <img src="assets/images/polarbear.png" alt="북극곰" />
-          <div class="member-info">
-            <h4>북극곰</h4>
-            <p>Unreal & Unity 개발</p>
-            <p>Homepage & 시스템 개발</p>
-            <p>Email : prange668@gmail.com</p>
-          </div>
-        </div>
-        <div class="member-card">
-          <h3>🎞️ Animator_01</h3>
-          <img src="assets/images/PurryCat.png" alt="고양이" />
-          <div class="member-info">
-            <h4>고양이</h4>
-            <p>애니메이션 및 일러스트</p>
-            <p>Email : vkxldhl8@gmail.com</p>
-          </div>
-        </div>
-        <div class="member-card">
-          <h3>🎨 Animator_02</h3>
-          <img src="assets/images/Succubus.jpg" alt="서큐버스" />
-          <div class="member-info">
-            <h4>서큐버스</h4>
-            <p>애니메이션 및 일러스트</p>
-            <p>Email : nicenap8282@gmail.com</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- 오류 -->
+    <div class="error-wrap" id="errorWrap" hidden>
+      <p class="error-text" id="errorText">오류가 발생했습니다.</p>
+      <button type="button" class="btn btn-outline btn-small" id="errorRetryBtn">다시 시도</button>
+    </div>
+
   </main>
 
-  <footer class="scroll-section">
-    <div class="footer-top">
-      <p><strong>Project Shaman</strong> | 인디게임 개발팀</p>
-      <p>문의 : prange668@gmail.com (Lee Yong Seob)</p>
-    </div>
-
-    <div class="footer-middle">
-      <p>&copy; 2025 Project Shaman. All Rights Reserved.</p>
-      <p>본 사이트는 GitHub Pages 를 통해 배포되었습니다.</p>
-    </div>
-
-    <div class="footer-bottom">
-      <p>
-        <small>
-          Unity®, Steam®은 각 사의 등록 상표입니다.<br />
-          본 프로젝트는 비상업적 개인 프로젝트이며, 모든 리소스는 팀 내부 자산으로 구성되어 있습니다.
-        </small>
-      </p>
-    </div>
+  <footer>
+    <p>Shaman AI 이미지 변환기 · 로컬 AI로 구동됩니다</p>
   </footer>
 
+  <script src="config.js"></script>
   <script src="scripts/main.js"></script>
 </body>
 </html>

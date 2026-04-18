@@ -1,0 +1,18 @@
+# 백엔드 (Docker로 로컬 실행, GitHub Pages 불필요)
+backend/
+
+# 문서/기획
+SPEC.md
+RESUME.md
+tasks/
+issue/
+
+# 테스트 이미지
+assets/images/test.jpg
+
+# IDE
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
