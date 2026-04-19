@@ -1,7 +1,6 @@
 /* ===== 상태 ===== */
 const state = {
   file:    null,    // 선택된 File 객체
-  quality: 'fast',  // 화질
   format:  'bmp',   // 저장 형식 (기본 BMP)
   dotSize: 'auto',  // 도트 크기
   imgW:    null,
@@ -16,7 +15,6 @@ const changeBtn         = document.getElementById('changeBtn');
 const uploadPlaceholder = document.getElementById('uploadPlaceholder');
 const uploadPreview     = document.getElementById('uploadPreview');
 const previewImg        = document.getElementById('previewImg');
-const qualityBtns       = document.querySelectorAll('[data-quality]');
 const dotSizeBtns       = document.querySelectorAll('[data-dotsize]');
 const formatBtns        = document.querySelectorAll('[data-format]');
 const wishInput         = document.getElementById('wishInput');
@@ -79,15 +77,6 @@ function updateResolutionInfo() {
   resolutionInfo.hidden = false;
 }
 
-/* ===== 화질 선택 ===== */
-qualityBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    qualityBtns.forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-    state.quality = btn.dataset.quality;
-  });
-});
-
 /* ===== 도트 크기 ===== */
 dotSizeBtns.forEach(btn => {
   btn.addEventListener('click', () => {
@@ -135,7 +124,6 @@ async function generate() {
   const formData = new FormData();
   formData.append('image',   state.file);
   formData.append('style',   'dot');
-  formData.append('quality', state.quality);
   formData.append('wish',    wishInput.value.trim());
   formData.append('format',  state.format);
   if (state.dotSize !== 'auto') formData.append('dotSize', state.dotSize);
