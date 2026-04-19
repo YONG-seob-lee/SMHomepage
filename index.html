@@ -68,6 +68,11 @@
           <span class="style-name">스케치풍</span>
           <span class="style-desc">연필로 그린 느낌</span>
         </button>
+        <button type="button" class="style-btn" data-style="dot">
+          <span class="style-icon">🕹️</span>
+          <span class="style-name">도트풍</span>
+          <span class="style-desc">픽셀 아트 스타일</span>
+        </button>
       </div>
 
       <div class="quality-row">
@@ -75,6 +80,22 @@
         <div class="quality-btns">
           <button type="button" class="quality-btn selected" data-quality="fast">빠른 결과 (512px)</button>
           <button type="button" class="quality-btn" data-quality="high">고화질 (1024px)</button>
+        </div>
+      </div>
+
+      <div class="quality-row" id="cardModeRow">
+        <span class="quality-label">용도</span>
+        <div class="quality-btns">
+          <button type="button" class="quality-btn selected" data-card="true">카드형</button>
+          <button type="button" class="quality-btn" data-card="false">일반</button>
+        </div>
+      </div>
+
+      <div class="quality-row" id="formatRow">
+        <span class="quality-label">저장 형식</span>
+        <div class="quality-btns">
+          <button type="button" class="quality-btn selected" data-format="png">PNG</button>
+          <button type="button" class="quality-btn" data-format="bmp">BMP</button>
         </div>
       </div>
     </section>
@@ -115,7 +136,7 @@
         <img id="resultImg" src="" alt="생성된 이미지" />
       </div>
       <div class="result-actions">
-        <a id="downloadBtn" href="" download="shaman_result.png" class="btn btn-primary">
+        <a id="downloadBtn" href="" download="shaman_result.png" class="btn btn-primary" id="downloadBtn">
           💾 저장하기
         </a>
         <button type="button" class="btn btn-outline" id="retryBtn">

@@ -3,6 +3,8 @@ const state = {
   file:    null,   // 선택된 File 객체
   style:   null,   // 선택된 풍 키
   quality: 'fast', // 화질
+  cardMode: true,  // 카드형 여부
+  format:  'png',  // 저장 형식
 };
 
 /* ===== 요소 참조 ===== */
@@ -15,6 +17,8 @@ const uploadPreview     = document.getElementById('uploadPreview');
 const previewImg        = document.getElementById('previewImg');
 const styleBtns         = document.querySelectorAll('.style-btn');
 const qualityBtns       = document.querySelectorAll('.quality-btn');
+const cardBtns          = document.querySelectorAll('[data-card]');
+const formatBtns        = document.querySelectorAll('[data-format]');
 const wishInput         = document.getElementById('wishInput');
 const charCount         = document.getElementById('charCount');
 const generateBtn       = document.getElementById('generateBtn');
@@ -63,6 +67,14 @@ styleBtns.forEach(btn => {
     styleBtns.forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
     state.style = btn.dataset.style;
+
+    // 도트풍 선택 시 BMP 기본값으로
+    if (state.style === 'dot') {
+      setFormat('bmp');
+    } else if (state.format === 'bmp') {
+      setFormat('png');
+    }
+
     updateGenerateBtn();
   });
 });
@@ -74,6 +86,27 @@ qualityBtns.forEach(btn => {
     btn.classList.add('selected');
     state.quality = btn.dataset.quality;
   });
+});
+
+/* ===== 카드형 / 일반 ===== */
+cardBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    cardBtns.forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    state.cardMode = btn.dataset.card === 'true';
+  });
+});
+
+/* ===== 저장 형식 ===== */
+function setFormat(fmt) {
+  state.format = fmt;
+  formatBtns.forEach(b => {
+    b.classList.toggle('selected', b.dataset.format === fmt);
+  });
+}
+
+formatBtns.forEach(btn => {
+  btn.addEventListener('click', () => setFormat(btn.dataset.format));
 });
 
 /* ===== 글자 수 카운트 ===== */
@@ -114,10 +147,12 @@ async function generate() {
   errorWrap.hidden     = true;
 
   const formData = new FormData();
-  formData.append('image',   state.file);
-  formData.append('style',   state.style);
-  formData.append('quality', state.quality);
-  formData.append('wish',    wishInput.value.trim());
+  formData.append('image',    state.file);
+  formData.append('style',    state.style);
+  formData.append('quality',  state.quality);
+  formData.append('wish',     wishInput.value.trim());
+  formData.append('cardMode', state.cardMode);
+  formData.append('format',   state.format);
 
   try {
     const res = await fetch(`${API_BASE_URL}/api/generate`, {
@@ -131,8 +166,9 @@ async function generate() {
 
     // 결과 표시
     const imgUrl = `${API_BASE_URL}${data.imageUrl}`;
-    resultImg.src     = imgUrl;
-    downloadBtn.href  = imgUrl;
+    resultImg.src            = imgUrl;
+    downloadBtn.href         = imgUrl;
+    downloadBtn.download     = `shaman_result.${data.ext || 'png'}`;
     resultCard.hidden = false;
     resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
