@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>이미지 변환기 — Shaman AI</title>
+  <title>픽셀아트 생성기 — Shaman AI</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <header>
     <div class="header-inner">
-      <h1>🎨 이미지 변환기</h1>
-      <p class="subtitle">사진을 올리고, 원하는 느낌을 골라보세요</p>
+      <h1>🕹️ 픽셀아트 생성기</h1>
+      <p class="subtitle">사진을 올리면 픽셀아트로 변환해드려요</p>
     </div>
   </header>
 
@@ -37,42 +37,13 @@
       </div>
     </section>
 
-    <!-- STEP 2: 풍 선택 -->
-    <section class="step-card" id="step-style">
+    <!-- STEP 2: 픽셀아트 설정 -->
+    <section class="step-card" id="step-options">
       <div class="step-label">2단계</div>
-      <h2>느낌 고르기</h2>
+      <h2>설정</h2>
 
-      <div class="style-grid">
-        <button type="button" class="style-btn" data-style="photo">
-          <span class="style-icon">📷</span>
-          <span class="style-name">사진풍</span>
-          <span class="style-desc">실제 사진처럼</span>
-        </button>
-        <button type="button" class="style-btn" data-style="illust">
-          <span class="style-icon">🖼️</span>
-          <span class="style-name">그림풍</span>
-          <span class="style-desc">일러스트 스타일</span>
-        </button>
-        <button type="button" class="style-btn" data-style="anime">
-          <span class="style-icon">✨</span>
-          <span class="style-name">애니풍</span>
-          <span class="style-desc">애니메이션 스타일</span>
-        </button>
-        <button type="button" class="style-btn" data-style="watercolor">
-          <span class="style-icon">🎨</span>
-          <span class="style-name">수채화풍</span>
-          <span class="style-desc">물감으로 그린 느낌</span>
-        </button>
-        <button type="button" class="style-btn" data-style="sketch">
-          <span class="style-icon">✏️</span>
-          <span class="style-name">스케치풍</span>
-          <span class="style-desc">연필로 그린 느낌</span>
-        </button>
-        <button type="button" class="style-btn" data-style="dot">
-          <span class="style-icon">🕹️</span>
-          <span class="style-name">도트풍</span>
-          <span class="style-desc">픽셀 아트 스타일</span>
-        </button>
+      <div class="resolution-info" id="resolutionInfo" hidden>
+        <span id="resInfoText"></span>
       </div>
 
       <div class="quality-row">
@@ -83,35 +54,21 @@
         </div>
       </div>
 
-      <!-- 도트 크기 선택 (도트풍 선택 시만 표시) -->
-      <div id="dotOptions" hidden>
-        <div class="quality-row">
-          <span class="quality-label">도트 크기</span>
-          <div class="quality-btns">
-            <button type="button" class="quality-btn selected" data-dotsize="auto">자동</button>
-            <button type="button" class="quality-btn" data-dotsize="16">16×16</button>
-            <button type="button" class="quality-btn" data-dotsize="32">32×32</button>
-            <button type="button" class="quality-btn" data-dotsize="64">64×64</button>
-          </div>
-        </div>
-        <div class="resolution-info" id="resolutionInfo" hidden>
-          <span id="resInfoText"></span>
-        </div>
-      </div>
-
-      <div class="quality-row" id="cardModeRow">
-        <span class="quality-label">용도</span>
+      <div class="quality-row">
+        <span class="quality-label">도트 크기</span>
         <div class="quality-btns">
-          <button type="button" class="quality-btn selected" data-card="true">카드형</button>
-          <button type="button" class="quality-btn" data-card="false">일반</button>
+          <button type="button" class="quality-btn selected" data-dotsize="auto">자동</button>
+          <button type="button" class="quality-btn" data-dotsize="16">16×16</button>
+          <button type="button" class="quality-btn" data-dotsize="32">32×32</button>
+          <button type="button" class="quality-btn" data-dotsize="64">64×64</button>
         </div>
       </div>
 
       <div class="quality-row" id="formatRow">
         <span class="quality-label">저장 형식</span>
         <div class="quality-btns">
-          <button type="button" class="quality-btn selected" data-format="png">PNG</button>
-          <button type="button" class="quality-btn" data-format="bmp">BMP</button>
+          <button type="button" class="quality-btn" data-format="png">PNG</button>
+          <button type="button" class="quality-btn selected" data-format="bmp">BMP</button>
         </div>
       </div>
     </section>
@@ -119,10 +76,10 @@
     <!-- STEP 3: 원하는 것 입력 -->
     <section class="step-card" id="step-wish">
       <div class="step-label">3단계</div>
-      <h2>원하는 것 쓰기 <span class="optional">(선택)</span></h2>
+      <h2>추가 요청 <span class="optional">(선택)</span></h2>
       <textarea
         id="wishInput"
-        placeholder="예: 봄 느낌으로 / 강아지 추가 / 하늘을 더 파랗게&#10;짧게 적어도 OK!"
+        placeholder="예: 배경을 검정으로 / 더 선명하게&#10;짧게 적어도 OK!"
         rows="3"
         maxlength="200"
       ></textarea>
@@ -132,8 +89,8 @@
     <!-- 만들기 버튼 -->
     <div class="generate-wrap">
       <button type="button" class="btn btn-generate" id="generateBtn" disabled>
-        <span class="btn-icon">🪄</span>
-        <span class="btn-text">만들기</span>
+        <span class="btn-icon">🕹️</span>
+        <span class="btn-text">픽셀아트로 변환</span>
       </button>
       <p class="generate-hint" id="generateHint">1단계에서 사진을 먼저 올려주세요</p>
     </div>
@@ -141,7 +98,7 @@
     <!-- 로딩 -->
     <div class="loading-wrap" id="loadingWrap" hidden>
       <div class="spinner"></div>
-      <p class="loading-text">이미지 만드는 중...</p>
+      <p class="loading-text">픽셀아트로 변환 중...</p>
       <p class="loading-sub">화질에 따라 30초~2분 정도 걸려요</p>
     </div>
 
@@ -149,10 +106,10 @@
     <section class="result-card" id="resultCard" hidden>
       <h2>✅ 완성됐어요!</h2>
       <div class="result-img-wrap">
-        <img id="resultImg" src="" alt="생성된 이미지" />
+        <img id="resultImg" src="" alt="생성된 픽셀아트" />
       </div>
       <div class="result-actions">
-        <a id="downloadBtn" href="" download="shaman_result.png" class="btn btn-primary" id="downloadBtn">
+        <a id="downloadBtn" href="" download="pixel_art.bmp" class="btn btn-primary">
           💾 저장하기
         </a>
         <button type="button" class="btn btn-outline" id="retryBtn">
@@ -170,10 +127,10 @@
   </main>
 
   <footer>
-    <p>Shaman AI 이미지 변환기 · 로컬 AI로 구동됩니다</p>
+    <p>Shaman AI 픽셀아트 생성기 · 로컬 AI로 구동됩니다</p>
   </footer>
 
   <script src="config.js"></script>
-  <script src="scripts/main.js?v=2"></script>
+  <script src="scripts/main.js?v=3"></script>
 </body>
 </html>
