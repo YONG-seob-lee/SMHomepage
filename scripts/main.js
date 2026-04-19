@@ -1,10 +1,13 @@
 /* ===== 상태 ===== */
 const state = {
-  file:    null,   // 선택된 File 객체
-  style:   null,   // 선택된 풍 키
-  quality: 'fast', // 화질
-  cardMode: true,  // 카드형 여부
-  format:  'png',  // 저장 형식
+  file:       null,    // 선택된 File 객체
+  style:      null,    // 선택된 풍 키
+  quality:    'fast',  // 화질
+  cardMode:   true,    // 카드형 여부
+  format:     'png',   // 저장 형식
+  dotSize:    'auto',  // 도트 크기 (auto/16/32/64)
+  imgW:       null,    // 업로드 이미지 너비
+  imgH:       null,    // 업로드 이미지 높이
 };
 
 /* ===== 요소 참조 ===== */
@@ -19,6 +22,10 @@ const styleBtns         = document.querySelectorAll('.style-btn');
 const qualityBtns       = document.querySelectorAll('[data-quality]');
 const cardBtns          = document.querySelectorAll('[data-card]');
 const formatBtns        = document.querySelectorAll('[data-format]');
+const dotSizeBtns       = document.querySelectorAll('[data-dotsize]');
+const dotOptions        = document.getElementById('dotOptions');
+const resolutionInfo    = document.getElementById('resolutionInfo');
+const resInfoText       = document.getElementById('resInfoText');
 const wishInput         = document.getElementById('wishInput');
 const charCount         = document.getElementById('charCount');
 const generateBtn       = document.getElementById('generateBtn');
@@ -56,9 +63,29 @@ function setFile(file) {
     previewImg.src = e.target.result;
     uploadPlaceholder.hidden = true;
     uploadPreview.hidden = false;
+
+    const img = new Image();
+    img.onload = () => {
+      state.imgW = img.naturalWidth;
+      state.imgH = img.naturalHeight;
+      updateResolutionInfo();
+    };
+    img.src = e.target.result;
   };
   reader.readAsDataURL(file);
   updateGenerateBtn();
+}
+
+function updateResolutionInfo() {
+  if (state.style !== 'dot' || !state.imgW) {
+    resolutionInfo.hidden = true;
+    return;
+  }
+  const inputSize = Math.max(state.imgW, state.imgH);
+  const autoTarget = Math.max(16, Math.round(inputSize / 16));
+  const displayTarget = state.dotSize === 'auto' ? autoTarget : parseInt(state.dotSize);
+  resInfoText.innerHTML = `업로드: <strong>${state.imgW}×${state.imgH}</strong> &nbsp;→&nbsp; 도트 출력: <strong>${displayTarget}×${displayTarget}</strong>`;
+  resolutionInfo.hidden = false;
 }
 
 /* ===== 풍 선택 ===== */
@@ -68,13 +95,17 @@ styleBtns.forEach(btn => {
     btn.classList.add('selected');
     state.style = btn.dataset.style;
 
-    // 도트풍 선택 시 BMP 기본값으로
+    // 도트풍 선택 시 BMP 기본값 + 도트 옵션 표시
     if (state.style === 'dot') {
       setFormat('bmp');
-    } else if (state.format === 'bmp') {
-      setFormat('png');
+      dotOptions.hidden = false;
+    } else {
+      if (state.format === 'bmp') setFormat('png');
+      dotOptions.hidden = true;
+      resolutionInfo.hidden = true;
     }
 
+    updateResolutionInfo();
     updateGenerateBtn();
   });
 });
@@ -94,6 +125,16 @@ cardBtns.forEach(btn => {
     cardBtns.forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
     state.cardMode = btn.dataset.card === 'true';
+  });
+});
+
+/* ===== 도트 크기 ===== */
+dotSizeBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    dotSizeBtns.forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    state.dotSize = btn.dataset.dotsize;
+    updateResolutionInfo();
   });
 });
 
@@ -153,6 +194,9 @@ async function generate() {
   formData.append('wish',     wishInput.value.trim());
   formData.append('cardMode', state.cardMode);
   formData.append('format',   state.format);
+  if (state.style === 'dot' && state.dotSize !== 'auto') {
+    formData.append('dotSize', state.dotSize);
+  }
 
   try {
     const res = await fetch(`${API_BASE_URL}/api/generate`, {

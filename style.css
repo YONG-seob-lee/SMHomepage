@@ -295,7 +295,20 @@ footer {
   border-top: 1px solid var(--border);
 }
 
-/* ===== 포맷 행 (도트풍 전용 힌트) ===== */
+/* ===== 도트 옵션 ===== */
+#dotOptions { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.resolution-info {
+  font-size: .82rem;
+  color: var(--text-sub);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  text-align: center;
+}
+.resolution-info strong { color: var(--primary); font-weight: 700; }
+
+/* ===== 포맷 행 ===== */
 #formatRow { margin-top: 4px; }
 
 /* ===== 모바일 최적화 ===== */

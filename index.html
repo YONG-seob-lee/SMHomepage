@@ -83,6 +83,22 @@
         </div>
       </div>
 
+      <!-- 도트 크기 선택 (도트풍 선택 시만 표시) -->
+      <div id="dotOptions" hidden>
+        <div class="quality-row">
+          <span class="quality-label">도트 크기</span>
+          <div class="quality-btns">
+            <button type="button" class="quality-btn selected" data-dotsize="auto">자동</button>
+            <button type="button" class="quality-btn" data-dotsize="16">16×16</button>
+            <button type="button" class="quality-btn" data-dotsize="32">32×32</button>
+            <button type="button" class="quality-btn" data-dotsize="64">64×64</button>
+          </div>
+        </div>
+        <div class="resolution-info" id="resolutionInfo" hidden>
+          <span id="resInfoText"></span>
+        </div>
+      </div>
+
       <div class="quality-row" id="cardModeRow">
         <span class="quality-label">용도</span>
         <div class="quality-btns">
